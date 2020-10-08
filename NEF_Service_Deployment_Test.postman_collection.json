@@ -1,0 +1,4012 @@
+{
+	"info": {
+		"_postman_id": "80549f5b-f8b7-45fb-9869-5a4e1912a2d4",
+		"name": "NEF_Service_Deployment_Test",
+		"description": "sp_test.go",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Service Parameter POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "996fd49e-ac82-431e-acb3-d3f46a29f60b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.dnn).to.equal(pm.environment.get(\"dnn\"));\r",
+							"    pm.expect(body.gpsi).to.equal(pm.environment.get(\"gpsi\"));\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"dnn\": \"8bdc3792-9bf0-11ea-bb37-0242ac130002\",\t\"gpsi\": \"extid-00001\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-serviceparameter/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-serviceparameter",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Service Parameter GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1330573-35ab-4a0e-96b8-3a41e6e2b910",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.dnn).to.equal(pm.environment.get(\"dnn\"));\r",
+							"    pm.expect(body.gpsi).to.equal(pm.environment.get(\"gpsi\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Service Parameter GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d5fe79e-aca8-4e48-a9a7-eb3eb3f70344",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].dnn).to.equal(pm.environment.get(\"dnn\"));\r",
+							"    pm.expect(body[0].gpsi).to.equal(pm.environment.get(\"gpsi\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-serviceparameter/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-serviceparameter",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Service Parameter PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "077bbe0d-1f53-4b47-baa8-698f8de54494",
+						"exec": [
+							"/*\r",
+							"// udr behaviour is not supported\r",
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.dnn).to.equal(pm.environment.get(\"dnn\"));\r",
+							"    pm.expect(body.gpsi).to.equal(pm.environment.get(\"gpsi\"));\r",
+							"    pm.expect(body.suppFeat).to.equal(pm.environment.get(\"suppFeat\"));\r",
+							"});\r",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"dnn\": \"8bdc3792-9bf0-11ea-bb37-0242ac130002\",\t\"gpsi\": \"extid-00001\", \"suppFeat\": \"0\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Service Parameter DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f045c7c3-7dfc-44a4-947a-92d909113b87",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prepare Sim for Device Trigger SUPI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "038b06bc-62ab-4b3a-95a5-b7f08fac93d7",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "123451234512345",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{udmsimHost}}:{{apiPort}}/simmng/v1/db/idtranslation_supi/5555555",
+					"protocol": "https",
+					"host": [
+						"{{udmsimHost}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"simmng",
+						"v1",
+						"db",
+						"idtranslation_supi",
+						"5555555"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prepare Sim for Device Trigger GPSI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc8c82e0-a0bd-4000-be73-e399fbb5a29e",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "5555555",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{udmsimHost}}:{{apiPort}}/simmng/v1/db/idtranslation_gpsi/5555555",
+					"protocol": "https",
+					"host": [
+						"{{udmsimHost}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"simmng",
+						"v1",
+						"db",
+						"idtranslation_gpsi",
+						"5555555"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Prepare Sim for Device Trigger RETURN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2938ac74-3ee1-4cea-9e37-38999359ac59",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"smsfInstanceId\":\"abcd-1234\",\"smsfSetId\":\"setid1\",\"supportedFeatures\":\"10\",\"plmnId\":{\"mcc\":\"mcc1\",\"mnc\":\"mnc1\"},\"smsfMAPAddress\":\"1234\",\"smsfDiameterAddress\":{\"name\":\"smsf1.uangel.com\",\"realm\":\"uangel.com\"},\"registrationTime\":\"2020-12-31T23:59:59+09:00\",\"contextInfo\":{\"origHeaders\":[\"header1\",\"header2\"]}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{udmsimHost}}:{{apiPort}}/simmng/v1/db/smsfretrieve/get_return",
+					"protocol": "https",
+					"host": [
+						"{{udmsimHost}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"simmng",
+						"v1",
+						"db",
+						"smsfretrieve",
+						"get_return"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Trigger POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2f3f92bc-dc7d-4cc4-868f-98138c438fe7",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal('5555555');\r",
+							"    pm.expect(body.deliveryResult).to.equal(\"TRIGGERED\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"externalId\": \"5555555\",\"msisdn\": \"0115555555\",\"supportedFeatures\": \"10\",\"validityPeriod\": 30,\"priority\": 0,\"applicationPortId\": 555,\"appSrcPortId\": 777,\"triggerPayload\": \"payload1\",\"notificationDestination\":\"https://af.localhost.uangel.com:8909/callback/data\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-device-triggering/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-device-triggering",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Trigger GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "21fefc1e-1df2-47d7-873d-a459d4dd3db4",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal('5555555');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Trigger GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f9a2ef16-cba6-4f11-993a-4024e8f7daf7",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].externalId).to.equal('5555555');\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-device-triggering/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-device-triggering",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Trigger PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "26ebb672-666f-49eb-90ff-c9021cf30e06",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal('5555555');\r",
+							"    pm.expect(body.deliveryResult).to.equal(\"REPLACED\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"externalId\": \"5555555\",\"msisdn\": \"0115555555\",\"supportedFeatures\": \"10\",\"validityPeriod\": 30,\"priority\": 0,\"applicationPortId\": 555,\"appSrcPortId\": 777,\"triggerPayload\": \"payload1\",\"notificationDestination\":\"https://af.localhost.uangel.com:8909/callback/data\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Trigger POST to delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "19b28410-412f-47bd-babd-0348c1c258d9",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal('5555555');\r",
+							"    pm.expect(body.deliveryResult).to.equal(\"TRIGGERED\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"externalId\": \"5555555\",\"msisdn\": \"0115555555\",\"supportedFeatures\": \"10\",\"validityPeriod\": 30,\"priority\": 0,\"applicationPortId\": 555,\"appSrcPortId\": 777,\"triggerPayload\": \"payload1\",\"notificationDestination\":\"https://af.localhost.uangel.com:8909/callback/data\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-device-triggering/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-device-triggering",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Device Trigger DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "093dd4d1-fd5a-45d4-b05b-2a37225b2cf3",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NIDD Configuration POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c74687a-02e2-4f40-b30a-1e25a45d6b67",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.mtcProviderId).to.equal(pm.environment.get(\"mtcProviderId\"));\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.msisdn).to.equal(pm.environment.get(\"msisdn\"));\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"externalId\": \"extid-00001\",\r\n\t\"msisdn\": \"msisdn-00001\",\r\n\t\"duration\": \"2030-12-31T23:59:59+09:00\",\r\n\t\"reliableDataService\": false,\r\n\t\"notificationDestination\": \"https://af.localhost.uangel.com:9442/callback/data\",\r\n\t\"supportedFeatures\": \"19\",\r\n\t\"mtcProviderId\": \"mtcProviderId1\",\r\n\t\"pdnEstablishmentOption\": \"WAIT_FOR_UE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-nidd/v1/af1/configurations",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-nidd",
+						"v1",
+						"af1",
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sm Context POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e83cf324-16df-46d1-95fb-22d7b5c3e731",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.supi).to.equal(\"imsi-00001\");\r",
+							"    pm.expect(body.dnn).to.equal(\"dnn-00001\");\r",
+							"    pm.environment.set(\"smLocation\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"supi\" : \"imsi-00001\",\r\n\t\"pduSessionId\" : 10,\r\n\t\"dnn\" : \"dnn-00001\",\r\n\t\"sNssai\": {\r\n\t\t\"sst\": 10,\r\n\t\t\"sd\": \"ABab01\"\r\n\t},\r\n\t\"nefId\" : \"nef-00001\",\r\n\t\"dlNiddEndPoint\" : \"https://smf.localhost.uangel.com:9445/callback/dlNiddEndPoint\",\r\n\t\"notificationUri\" : \"https://smf.localhost.uangel.com:9445/callback/notificationUri\",\r\n\t\"niddInfo\" : {\r\n\t\t\"gpsi\" : \"extid-00001\"\r\n\t},\r\n\t\"rdsSupport\" : false,\r\n\t\"smContextConfig\" : {\r\n\t\t\"smalDataRateControl\" : {\r\n\t\t\t\"timeUnit\" : \"DAY\",\r\n\t\t\t\"maxPacketRateUl\" : 10,\r\n\t\t\t\"maxPacketRateDl\" : 20,\r\n\t\t\t\"maxAdditionalPacketRateUl\" : 30,\r\n\t\t\t\"maxAdditionalPacketRateDl\" : 40\r\n\t\t},\r\n\t\t\"smallDataRateStatus\" : {\r\n\t\t\t\"validityTime\" : \"2030-12-31T23:59:59+09:00\",\r\n\t\t\t\"remainPacketUl\" : 50,\r\n\t\t\t\"remainPacketDl\" : 60,\r\n\t\t\t\"remainExReportsUl\" : 70,\r\n\t\t\t\"remainExReportsDl\" : 80\r\n\t\t},\r\n\t\t\"servPlmnDataRateCtl\" : 20\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/nnef-smcontext/v1/sm-contexts",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"nnef-smcontext",
+						"v1",
+						"sm-contexts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sm Context POST Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96979b22-a167-4fb5-aa3e-ead06e51375a",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"dlNiddEndPoint\" : \"https://smf.localhost.uangel.com:9445/dlNiddEndPoint\",\r\n\t\"notificationUri\" : \"https://smf.localhost.uangel.com:9445/notificationUri\",\r\n\t\"smContextConfig\" : {\r\n\t\t\"smalDataRateControl\" : {\r\n\t\t\t\"timeUnit\" : \"WEEK\",\r\n\t\t\t\"maxPacketRateUl\" : 20,\r\n\t\t\t\"maxPacketRateDl\" : 30,\r\n\t\t\t\"maxAdditionalPacketRateUl\" : 40,\r\n\t\t\t\"maxAdditionalPacketRateDl\" : 50\r\n\t\t},\r\n\t\t\"smallDataRateStatus\" : {\r\n\t\t\t\"validityTime\" : \"2040-12-31T23:59:59+09:00\",\r\n\t\t\t\"remainPacketUl\" : 60,\r\n\t\t\t\"remainPacketDl\" : 70,\r\n\t\t\t\"remainExReportsUl\" : 80,\r\n\t\t\t\"remainExReportsDl\" : 90\r\n\t\t},\r\n\t\t\"servPlmnDataRateCtl\" : 300\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{smLocation}}/update",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{smLocation}}",
+					"path": [
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sm Context POST Deliver",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a1e7f929-4798-4390-90cd-161e93e3ac28",
+						"exec": [
+							"// Multipart Message Create\r",
+							"/*\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});\r",
+							"*/"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "multipart/related; boundary=712878b793b982f08560bd704b805259569d76bb2d70705f6d3a706025df; type=\\\"application/json\\\"",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{smLocation}}/deliver",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{smLocation}}",
+					"path": [
+						"deliver"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sm Context POST Release",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7d7b0ae-9a05-4ae0-8c0c-9a11edfa0664",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"cause\" : \"PDU_SESSION_RELEASED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{smLocation}}/release",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{smLocation}}",
+					"path": [
+						"release"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NIDD Configuration GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc27c855-60a3-44cf-94a2-406f623094ec",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.mtcProviderId).to.equal(pm.environment.get(\"mtcProviderId\"));\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.msisdn).to.equal(pm.environment.get(\"msisdn\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NIDD Configuration GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4e0a2e0c-581f-42df-8cae-ea22368813f3",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].mtcProviderId).to.equal(pm.environment.get(\"mtcProviderId\"));\r",
+							"    pm.expect(body[0].externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body[0].msisdn).to.equal(pm.environment.get(\"msisdn\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-nidd/v1/af1/configurations",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-nidd",
+						"v1",
+						"af1",
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NIDD Configuration PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "515b2ed5-38d5-4abd-a8ef-dcba5283cfb2",
+						"exec": [
+							"pm.test(\"Successful PATCH request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.mtcProviderId).to.equal(pm.environment.get(\"mtcProviderId\"));\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.msisdn).to.equal(pm.environment.get(\"msisdn\"));\r",
+							"    pm.expect(body.pdnEstablishmentOption).to.equal(\"SEND_TRIGGER\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"duration\": \"2040-12-31T23:59:59+09:00\",\r\n\t\"reliableDataService\": false,\r\n\t\"pdnEstablishmentOption\": \"SEND_TRIGGER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NIDD Configuration DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55768c00-c262-4179-9c9a-e4bd3d2e4d12",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5G Lan Parameter Provision POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d72687b3-5c7f-408c-b724-7b3da44b1b9b",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[\"5gLanParams\"].exterGroupId).to.equal(pm.environment.get(\"externalGroupId\"));\r",
+							"    pm.expect(body[\"5gLanParams\"].dnn).to.equal(pm.environment.get(\"dnn\"));\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"5gLanParams\" : {\r\n\t\t\t\"exterGroupId\" : \"extgroupid-00001\",\r\n\t\t\t\"gpsis\" : {\r\n\t\t\t\t\"extid-00001\" : \"extid-00001\"\r\n\t\t\t},\r\n\t\t\t\"dnn\" : \"8bdc3792-9bf0-11ea-bb37-0242ac130002\",\r\n\t\t\t\"snssai\" : {\r\n\t\t\t\t\"sst\" : 255,\r\n\t\t\t\t\"sd\" : \"19CDE0\"\r\n\t\t\t},\r\n\t\t\t\"sessionType\" : \"ETHERNET\",\r\n\t\t\t\"appDesps\" : {\r\n\t\t\t\t\"8bdc3792-9bf0-11ea-bb37-0242ac130003\" : {\r\n\t\t\t\t\t\"osId\" : \"8bdc3792-9bf0-11ea-bb37-0242ac130003\",\r\n\t\t\t\t\t\"appId\" : {\r\n\t\t\t\t\t\t\"app1\" : \"app1\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t},\r\n\t\t\"suppFeat\" : \"\"\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-5glan-pp/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-5glan-pp",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5G Lan Parameter Provision GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "818f7493-c814-461b-8e63-655e78e65f1f",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[\"5gLanParams\"].exterGroupId).to.equal(pm.environment.get(\"externalGroupId\"));\r",
+							"    pm.expect(body[\"5gLanParams\"].dnn).to.equal(pm.environment.get(\"dnn\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5G Lan Parameter Provision GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8d4adb88-c5d7-40c8-a9f8-7d6d7608816d",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0][\"5gLanParams\"].exterGroupId).to.equal(pm.environment.get(\"externalGroupId\"));\r",
+							"    pm.expect(body[0][\"5gLanParams\"].dnn).to.equal(pm.environment.get(\"dnn\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-5glan-pp/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-5glan-pp",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5G Lan Parameter Provision PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "73769978-883f-4c37-ba48-10dba62b821b",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[\"5gLanParams\"].exterGroupId).to.equal(pm.environment.get(\"externalGroupId\"));\r",
+							"    pm.expect(body[\"5gLanParams\"].dnn).to.equal(pm.environment.get(\"dnn1\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"5gLanParams\" : {\r\n\t\t\t\"exterGroupId\" : \"extgroupid-00001\",\r\n\t\t\t\"gpsis\" : {\r\n\t\t\t\t\"extid-00001\" : \"extid-00001\"\r\n\t\t\t},\r\n\t\t\t\"dnn\" : \"8bdc3792-9bf0-11ea-bb37-0242ac130009\",\r\n\t\t\t\"snssai\" : {\r\n\t\t\t\t\"sst\" : 255,\r\n\t\t\t\t\"sd\" : \"19CDE0\"\r\n\t\t\t},\r\n\t\t\t\"sessionType\" : \"ETHERNET\",\r\n\t\t\t\"appDesps\" : {\r\n\t\t\t\t\"8bdc3792-9bf0-11ea-bb37-0242ac130003\" : {\r\n\t\t\t\t\t\"osId\" : \"8bdc3792-9bf0-11ea-bb37-0242ac130003\",\r\n\t\t\t\t\t\"appId\" : {\r\n\t\t\t\t\t\t\"app1\" : \"app1\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t},\r\n\t\t\"suppFeat\" : \"\"\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5G Lan Parameter Provision PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b446cb8a-f325-493d-ad54-aa9d41ff2ff5",
+						"exec": [
+							"pm.test(\"Successful PATCH request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[\"5gLanParams\"].exterGroupId).to.equal(pm.environment.get(\"externalGroupId\"));\r",
+							"    pm.expect(body[\"5gLanParams\"].gpsis[\"extid-00004\"]).to.equal(pm.environment.get(\"gpsi4\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"5gLanParamsPatch\" : {\r\n\t\t\t\"gpsis\" : {\r\n\t\t\t\t\"extid-00004\" : \"extid-00004\"\r\n\t\t\t},\r\n            \"dnn\" : \"8bdc3792-9bf0-11ea-bb37-0242ac130010\",\r\n\t\t\t\"appDesps\" : {\r\n\t\t\t\t\"8bdc3792-9bf0-11ea-bb37-0242ac130003\" : {\r\n\t\t\t\t\t\"osId\" : \"8bdc3792-9bf0-11ea-bb37-0242ac130003\",\r\n\t\t\t\t\t\"appId\" : {\r\n\t\t\t\t\t\t\"app1\" : \"patchApp1\"\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5G Lan Parameter Provision DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "596553e0-6d26-46fa-a04b-850a2efdb1df",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Network Parameter Configuration POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "16f07945-9687-4b81-8c2a-c9bc2b6af55e",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"supportedFeatures\": \"4\",\r\n\t\t\"externalId\": \"extid-00001\",\r\n\t\t\"maximumLatency\": 60,\r\n\t\t\"maximumResponseTime\": 10,\r\n\t\t\"suggestedNumberOfDlPackets\": 1024,\r\n\t\t\"validityTime\": \"2030-04-27T23:59:59+09:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-network-parameter-configuration/v1/af1/configurations",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-network-parameter-configuration",
+						"v1",
+						"af1",
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Network Parameter Configuration GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a18880fa-3bfa-4740-adbf-d383bc8cc466",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Network Parameter Configuration GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "341fac7c-2cad-4cf9-a094-3c0286ef7e41",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-network-parameter-configuration/v1/af1/configurations",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-network-parameter-configuration",
+						"v1",
+						"af1",
+						"configurations"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Network Parameter Configuration PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77aa0e15-7913-420e-8921-244ab6593e44",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.maximumLatency).to.equal(120);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"supportedFeatures\": \"4\",\r\n\t\t\"externalId\": \"extid-00001\",\r\n\t\t\"maximumLatency\": 120,\r\n\t\t\"maximumResponseTime\": 10,\r\n\t\t\"suggestedNumberOfDlPackets\": 1024,\r\n\t\t\"validityTime\": \"2030-04-27T23:59:59+09:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Network Parameter Configuration PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fcd6c013-8e1c-4986-961d-594aafdb8b9a",
+						"exec": [
+							"pm.test(\"Successful PATCH request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.maximumResponseTime).to.equal(20);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"maximumResponseTime\": 20\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Network Parameter Configuration DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f7939005-d2b5-4097-9cef-940f7dd7ba14",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP Parameter Provision POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3744c622-1cc4-4cdb-af7c-874925716eb5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.cpParameterSets[\"1\"].setId).to.equal(\"1\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"supportedFeatures\":\"supp1\",\r\n\t\t\"mtcProviderId\":\"mtc1\",\r\n\t\t\"externalId\":\"extid-00001\",\r\n\t\t\"cpParameterSets\": {\r\n\t\t\t\"1\":{\r\n\t\t\t\t\"setId\":\"1\",\r\n\t\t\t\t\"validityTime\":\"2021-01-01T08:00:00+09:00\",\r\n\t\t\t\t\"periodicCommunicationIndicator\":\"PERIODICALLY\",\r\n\t\t\t\t\"communicationDurationTime\":5,\r\n\t\t\t\t\"periodicTime\":55,\r\n\t\t\t\t\"stationaryIndication\":\"MOBILE\",\r\n\t\t\t\t\"batteryInds\":[\r\n\t\t\t\t\t\"BATTERY_RECHARGE\",\r\n\t\t\t\t\t\"BATTERY_NO_REPLACE\"\r\n\t\t\t\t],\r\n\t\t\t\t\"trafficProfile\":\"DUAL_TRANS_UL_FIRST\",\r\n\t\t\t\t\"expectedUmts\":[\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"umtTime\":\"09:00:00\",\r\n\t\t\t\t\t\t\"umtDuration\":1800\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"umtTime\":\"18:00:00\",\r\n\t\t\t\t\t\t\"umtDuration\":3600\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"expectedUmtDays\":[\r\n\t\t\t\t\t1, 2, 3, 4, 5\r\n\t\t\t\t]\r\n\t\t\t}\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-cp-parameter-provisioning/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-cp-parameter-provisioning",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP Parameter Provision GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "927efe9e-ed4b-4725-bbc4-8dc76fbed0fd",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.cpParameterSets[\"1\"].setId).to.equal(\"1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP Parameter Provision GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77aae3d3-4fb1-4025-8b1d-529faed934da",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body[0].cpParameterSets[\"1\"].setId).to.equal(\"1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-cp-parameter-provisioning/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-cp-parameter-provisioning",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP Parameter Provision PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4764a929-1d55-4a6f-8120-128d645eaebb",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.cpParameterSets[\"1\"].setId).to.equal(\"1\");\r",
+							"    pm.expect(body.cpParameterSets[\"1\"].trafficProfile).to.equal(\"DUAL_TRANS_DL_FIRST\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"supportedFeatures\":\"supp1\",\r\n\t\t\"mtcProviderId\":\"mtc2\",\r\n\t\t\"externalId\":\"extid-00001\",\r\n\t\t\"cpParameterSets\": {\r\n\t\t\t\"1\":{\r\n\t\t\t\t\"setId\":\"1\",\r\n\t\t\t\t\"validityTime\":\"2021-01-01T08:00:00+09:00\",\r\n\t\t\t\t\"periodicCommunicationIndicator\":\"PERIODICALLY\",\r\n\t\t\t\t\"communicationDurationTime\":5,\r\n\t\t\t\t\"periodicTime\":55,\r\n\t\t\t\t\"stationaryIndication\":\"MOBILE\",\r\n\t\t\t\t\"batteryInds\":[\r\n\t\t\t\t\t\"BATTERY_RECHARGE\",\r\n\t\t\t\t\t\"BATTERY_NO_REPLACE\"\r\n\t\t\t\t],\r\n\t\t\t\t\"trafficProfile\":\"DUAL_TRANS_DL_FIRST\",\r\n\t\t\t\t\"expectedUmts\":[\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"umtTime\":\"09:00:00\",\r\n\t\t\t\t\t\t\"umtDuration\":1800\r\n\t\t\t\t\t},\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\t\"umtTime\":\"18:00:00\",\r\n\t\t\t\t\t\t\"umtDuration\":3600\r\n\t\t\t\t\t}\r\n\t\t\t\t],\r\n\t\t\t\t\"expectedUmtDays\":[\r\n\t\t\t\t\t1, 2, 3, 4, 5\r\n\t\t\t\t]\r\n\t\t\t}\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CP Parameter Provision DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29987985-e9fd-4f8d-a350-31aff4587b2e",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Management POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bab4ca95-44bc-436a-a694-ad9a44593669",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.pfdDatas[\"100\"].externalAppId).to.equal(\"100\");\r",
+							"    pm.expect(body.pfdDatas[\"100\"].pfds[\"1\"].pfdId).to.equal(\"1\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"supportedFeatures\": \"10\",\r\n\t\t\"notificationDestination\": \"https://af.localhost.uangel.com:5882/callback/data\",\r\n\t\t\"pfdDatas\": {\r\n\t\t\t\"100\":{\r\n\t\t\t\t\"externalAppId\":\"100\",\r\n\t\t\t\t\"allowedDelay\":10,\r\n\t\t\t\t\"pfds\": {\r\n\t\t\t\t\t\"1\":{\r\n\t\t\t\t\t\t\"pfdId\":\"1\",\r\n\t\t\t\t\t\t\"flowDescriptions\":[\r\n\t\t\t\t\t\t\t\"flowDesc1\", \r\n\t\t\t\t\t\t\t\"flowDesc2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"urls\":[\r\n\t\t\t\t\t\t\t\"https://af.localhost.uangel.com/url1\", \r\n\t\t\t\t\t\t\t\"https://af.localhost.uangel.com/url2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"domainNames\":[\r\n\t\t\t\t\t\t\t\"domainName1\",\r\n\t\t\t\t\t\t\t\"domainName2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"dnProtocol\":[\r\n\t\t\t\t\t\t\t\"DNS_QNAME\",\r\n\t\t\t\t\t\t\t\"DNS_QNAME\"\r\n\t\t\t\t\t\t]\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t},\r\n            \"101\":{\r\n\t\t\t\t\"externalAppId\":\"101\",\r\n\t\t\t\t\"allowedDelay\":10,\r\n\t\t\t\t\"pfds\": {\r\n\t\t\t\t\t\"1\":{\r\n\t\t\t\t\t\t\"pfdId\":\"1\",\r\n\t\t\t\t\t\t\"flowDescriptions\":[\r\n\t\t\t\t\t\t\t\"flowDesc1\", \r\n\t\t\t\t\t\t\t\"flowDesc2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"urls\":[\r\n\t\t\t\t\t\t\t\"https://af.localhost.uangel.com/url1\", \r\n\t\t\t\t\t\t\t\"https://af.localhost.uangel.com/url2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"domainNames\":[\r\n\t\t\t\t\t\t\t\"domainName1\",\r\n\t\t\t\t\t\t\t\"domainName2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"dnProtocol\":[\r\n\t\t\t\t\t\t\t\"DNS_QNAME\",\r\n\t\t\t\t\t\t\t\"DNS_QNAME\"\r\n\t\t\t\t\t\t]\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-pfd-management/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-pfd-management",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Management GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e529540-131b-4ec3-847d-903b4afc24e6",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.pfdDatas[\"100\"].externalAppId).to.equal(\"100\");\r",
+							"    pm.expect(body.pfdDatas[\"100\"].pfds[\"1\"].pfdId).to.equal(\"1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Management GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2b9c1227-4e26-4b98-a314-2fe65e67a33f",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].pfdDatas[\"100\"].externalAppId).to.equal(\"100\");\r",
+							"    pm.expect(body[0].pfdDatas[\"100\"].pfds[\"1\"].pfdId).to.equal(\"1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-pfd-management/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-pfd-management",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Notification Subscription GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "59cf34f8-f726-4688-b992-a464db76d1d1",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.applicationId).to.equal(\"100\");\r",
+							"});\r",
+							"pm.sendRequest(\"https://postman-echo.com/get\", function (err, response) {\r",
+							"    console.log(response.json());\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/nnef-pfdmanagement/v1/applications/100",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"nnef-pfdmanagement",
+						"v1",
+						"applications",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Notification Subscription GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95271fd0-c20a-4b1a-9470-a976d484b363",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].applicationId).to.equal(\"100\");\r",
+							"    pm.expect(body[1].applicationId).to.equal(\"101\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/nnef-pfdmanagement/v1/applications?application-ids=100+101",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"nnef-pfdmanagement",
+						"v1",
+						"applications"
+					],
+					"query": [
+						{
+							"key": "application-ids",
+							"value": "100+101"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Management PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "23eba416-c507-4206-bdc2-d10166f25058",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.pfdDatas[\"100\"].externalAppId).to.equal(\"200\");\r",
+							"    pm.expect(body.pfdDatas[\"100\"].pfds[\"1\"].pfdId).to.equal(\"1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"supportedFeatures\": \"10\",\r\n\t\t\"notificationDestination\": \"https://af.localhost.uangel.com:5882/callback/data\",\r\n\t\t\"pfdDatas\": {\r\n\t\t\t\"100\":{\r\n\t\t\t\t\"externalAppId\":\"200\",\r\n\t\t\t\t\"allowedDelay\":10,\r\n\t\t\t\t\"pfds\": {\r\n\t\t\t\t\t\"1\":{\r\n\t\t\t\t\t\t\"pfdId\":\"1\",\r\n\t\t\t\t\t\t\"flowDescriptions\":[\r\n\t\t\t\t\t\t\t\"flowDesc1\", \r\n\t\t\t\t\t\t\t\"flowDesc2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"urls\":[\r\n\t\t\t\t\t\t\t\"https://af.localhost.uangel.com/url1\", \r\n\t\t\t\t\t\t\t\"https://af.localhost.uangel.com/url2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"domainNames\":[\r\n\t\t\t\t\t\t\t\"domainName1\",\r\n\t\t\t\t\t\t\t\"domainName2\"\r\n\t\t\t\t\t\t],\r\n\t\t\t\t\t\t\"dnProtocol\":[\r\n\t\t\t\t\t\t\t\"DNS_QNAME\",\r\n\t\t\t\t\t\t\t\"DNS_QNAME\"\r\n\t\t\t\t\t\t]\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n        }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Management PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "29adda20-8bd3-4dbc-a101-5fd2be223b70",
+						"exec": [
+							"pm.test(\"Successful PATCH request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalAppId).to.equal(\"300\");\r",
+							"    pm.expect(body.pfds[\"1\"].pfdId).to.equal(\"1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"externalAppId\":\"300\",\r\n    \"allowedDelay\":100,\r\n    \"pfds\": {\r\n        \"2\": {\r\n            \"pfdId\":\"2\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}/applications/100",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}",
+					"path": [
+						"applications",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Management DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7481e716-62f4-48ed-94a3-27461533e242",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Notification Subscription POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cd5ab8c6-2c8b-4d7e-8b16-345401149928",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.supportedFeatures).to.equal(\"10\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\r\n\t\t\"applicationIds\": [\r\n\t\t\t\"1\", \"2\", \"3\"\r\n\t\t],\r\n\t\t\"notifyUri\": \"https://smf.localhost.uangel.com:8883/callback/data\",\r\n\t\t\"supportedFeatures\": \"10\"\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/nnef-pfdmanagement/v1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"nnef-pfdmanagement",
+						"v1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Notification Subscription PUT",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4fc28ce5-f820-44ae-bd87-e6970266e0df",
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.supportedFeatures).to.equal(\"11\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\r\n\t\t\"applicationIds\": [\r\n\t\t\t\"1\", \"2\"\r\n\t\t],\r\n\t\t\"notifyUri\": \"https://smf.localhost.uangel.com:8883/callback/data\",\r\n\t\t\"supportedFeatures\": \"11\"\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PFD Notification Subscription DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "944354b4-7a1f-4671-b21a-f16271c8a95a",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QoS POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9179fb8b-12b9-4a34-88a7-1d31d135531d",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.ueIpv4Addr).to.equal(\"192.51.100.1\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\r\n\t\t\"supportedFeatures\": \"00\",\r\n\t\t\"notificationDestination\": \"https://af.localhost.uangel.com:7442/callback/data\",\r\n\t\t\"ueIpv4Addr\": \"192.51.100.1\",\r\n\t\t\"flowInfo\": [\r\n\t\t\t{\r\n\t\t\t\t\"flowId\": 1,\r\n\t\t\t\t\"flowDescriptions\": [\r\n\t\t\t\t\t\"in\",\r\n\t\t\t\t\t\"out\"\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"flowId\": 2,\r\n\t\t\t\t\"flowDescriptions\": [\r\n\t\t\t\t\t\"in\",\r\n\t\t\t\t\t\"out\"\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"qosReference\": \"qos_ref1\",\r\n\t\t\"altQosReferences\": [\r\n\t\t\t\"alt_ref1\", \"alt_ref2\"\r\n\t\t],\r\n\t\t\"usageThreshold\":{\r\n\t\t\t\"duration\": 10,\r\n\t\t\t\"totalVolume\": 2048,\r\n\t\t\t\"downlinkVolume\": 1024,\r\n\t\t\t\"uplinkVolume\": 1024\r\n\t\t},\r\n\t\t\"sponsorInfo\": {\r\n\t\t\t\"sponsorId\": \"spid_data\",\r\n\t\t\t\"aspId\": \"aspid_data\"\r\n\t\t},\r\n\t\t\"qosMonInfo\": {\r\n\t\t\t\"reqQosMonParams\": [\"DOWNLINK\", \"UPLINK\", \"ROUND_TRIP\"],\r\n\t\t\t\"reqFreqs\": [\"EVENT_TRIGGERED\",\"PERIODIC\", \"SESSION_RELEASE\"],\r\n\t\t\t\"repThreshDl\": 100,\r\n\t\t\t\"repThreshUl\": 200,\r\n\t\t\t\"repThreshRp\": 500,\r\n\t\t\t\"waitTime\": 20,\r\n\t\t\t\"repPeriod\": 5\r\n\t\t}\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-as-session-with-qos/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-as-session-with-qos",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QoS GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa32afe1-5c2e-4375-816e-983106f5b6d6",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.ueIpv4Addr).to.equal(\"192.51.100.1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QoS GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba8b0b78-f3cf-4c37-9109-66ffeb45c096",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].ueIpv4Addr).to.equal(\"192.51.100.1\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-as-session-with-qos/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-as-session-with-qos",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QoS PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9f5591a6-8f0e-4336-a88d-64cbe027e7b4",
+						"exec": [
+							"pm.test(\"Successful PATCH request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.ueIpv4Addr).to.equal(\"192.51.100.1\");\r",
+							"    pm.expect(body.usageThreshold.downlinkVolume).to.equal(2048);\r",
+							"    \r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"usageThreshold\":{\r\n\t\t\"duration\": 20,\r\n\t\t\"totalVolume\": 4096,\r\n\t\t\"downlinkVolume\": 2048,\r\n\t\t\"uplinkVolume\": 2048\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "QoS DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ce660b4d-dfe0-4e62-a5ae-9783da990a4a",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Monitoring Event POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ea254ce7-4779-4185-9c16-25898306d2a7",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.monitoringType).to.equal(\"LOSS_OF_CONNECTIVITY\");\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\t\"supportedFeatures\": \"6C3F\",\r\n\t\t\"externalId\": \"extid-00001\",\r\n\t\t\"mtcProviderId\": \"mtcProviderId1\",\r\n\t\t\"notificationDestination\": \"https://af.localhost.uangel.com:3442/callback/data\",\r\n\t\t\"monitoringType\": \"LOSS_OF_CONNECTIVITY\",\r\n\t\t\"maximumNumberOfReports\": 10,\r\n\t\t\"monitorExpireTime\": \"2030-12-31T23:59:59+09:00\", \r\n\t\t\"maximumDetectionTime\": 5\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-monitoring-event/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-monitoring-event",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Monitoring Event GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d8292481-f3dd-4e4f-ba2d-c9125978409c",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body.monitoringType).to.equal(\"LOSS_OF_CONNECTIVITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Monitoring Event GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c841fd4f-eba6-4cfd-b63c-44f6f1ee734e",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].externalId).to.equal(pm.environment.get(\"externalId\"));\r",
+							"    pm.expect(body[0].monitoringType).to.equal(\"LOSS_OF_CONNECTIVITY\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-monitoring-event/v1/af1/subscriptions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-monitoring-event",
+						"v1",
+						"af1",
+						"subscriptions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Monitoring Event DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "911c7e8c-58f4-4dcb-a9a6-bc0ff702d201",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chargeable Party POST",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dbdb0c6b-d2f2-4823-9d66-a187c43784b5",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(201);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.ipv4Addr).to.equal(\"192.51.100.1\");\r",
+							"    pm.expect(body.flowInfo[0].flowId).to.equal(1);\r",
+							"    pm.environment.set(\"location\", pm.response.headers.get(\"Location\"))\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\t{\r\n\t\t\"supportedFeatures\": \"00\",\r\n\t\t\"notificationDestination\": \"https://af.localhost.uangel.com:4442/callback/data\",\r\n\t\t\"ipv4Addr\": \"192.51.100.1\",\r\n\t\t\"flowInfo\": [\r\n\t\t\t{\r\n\t\t\t\t\"flowId\": 1,\r\n\t\t\t\t\"flowDescriptions\": [\r\n\t\t\t\t\t\"in\",\r\n\t\t\t\t\t\"out\"\r\n\t\t\t\t]\r\n\t\t\t},\r\n\t\t\t{\r\n\t\t\t\t\"flowId\": 2,\r\n\t\t\t\t\"flowDescriptions\": [\r\n\t\t\t\t\t\"in\",\r\n\t\t\t\t\t\"out\"\r\n\t\t\t\t]\r\n\t\t\t}\r\n\t\t],\r\n\t\t\"sponsorInformation\": {\r\n\t\t\t\"sponsorId\": \"spid_data\",\r\n\t\t\t\"aspId\": \"aspid_data\"\r\n\t\t},\r\n\t\t\"sponsoringEnabled\": false,\r\n\t\t\"referenceId\": \"1111\",\r\n\t\t\"usageThreshold\":{\r\n\t\t\t\"duration\": 10,\r\n\t\t\t\"totalVolume\": 2048,\r\n\t\t\t\"downlinkVolume\": 1024,\r\n\t\t\t\"uplinkVolume\": 1024\r\n\t\t}\r\n\t}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-chargeable-party/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-chargeable-party",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chargeable Party GET",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d32e8adb-8af6-47b9-9f4b-fb6802502dba",
+						"exec": [
+							"pm.test(\"Successful GET request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.ipv4Addr).to.equal(\"192.51.100.1\");\r",
+							"    pm.expect(body.flowInfo[0].flowId).to.equal(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chargeable Party GET ALL",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5386ab9b-2db5-43d8-9049-92acd6b51331",
+						"exec": [
+							"pm.test(\"Successful GET ALL request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body[0].ipv4Addr).to.equal(\"192.51.100.1\");\r",
+							"    pm.expect(body[0].flowInfo[0].flowId).to.equal(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}/3gpp-chargeable-party/v1/af1/transactions",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}",
+					"path": [
+						"3gpp-chargeable-party",
+						"v1",
+						"af1",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chargeable Party PATCH",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "43ac21be-c687-44ac-80c2-c5f79101ad1b",
+						"exec": [
+							"pm.test(\"Successful PATCH request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(200);\r",
+							"});\r",
+							"pm.test(\"Body is correct\", function () {\r",
+							"    const body = pm.response.json();\r",
+							"    pm.expect(body.ipv4Addr).to.equal(\"192.51.100.1\");\r",
+							"    pm.expect(body.flowInfo[0].flowId).to.equal(2);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"flowInfo\": [\r\n\t\t{\r\n\t\t\t\"flowId\": 2,\r\n\t\t\t\"flowDescriptions\": [\r\n\t\t\t\t\"in\"\r\n\t\t\t]\r\n\t\t}\r\n\t],\r\n\t\"sponsoringEnabled\": true,\r\n\t\"referenceId\": \"2222\",\r\n\t\"usageThreshold\":{\r\n\t\t\"duration\": 20,\r\n\t\t\"totalVolume\": 4096,\r\n\t\t\"downlinkVolume\": 2048,\r\n\t\t\"uplinkVolume\": 2048\r\n\t}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Chargeable Party DELETE",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "80ab48cb-70dd-44e0-881c-2e73cd26bcd8",
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {\r",
+							"    pm.expect(pm.response.code).to.equal(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "accessToken",
+							"value": "eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJPdXRPZlNwZWMiOm51bGwsImF1ZCI6Ik5FRiIsImNvbnN1bWVyUGxtbklkIjp7Im1jYyI6IjQ1MCIsIm1uYyI6IjA1In0sImV4cCI6MCwiaXNzIjoiYjcwY2I3NjYtOGI1MC00YzM1LTk0OGUtN2Y1MzY5YzRhMzhkIiwic2NvcGUiOiIzZ3BwLXNlcnZpY2VwYXJhbWV0ZXIiLCJzdWIiOiJiYTBkYWJmOS0yYTE0LTRhNjktOWI0Ni0xMmU0NWEzMGRjMDEifQ.Pk6nWO-LpeiCZK7Bqx6Wslg0cfIX1fEKqe-TeqS_B0GyYcoX1iVtPbVq1FTSZXZnwyeqoPCnDGZVcac2gHnRQw",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{hostname}}:{{apiPort}}{{location}}",
+					"protocol": "https",
+					"host": [
+						"{{hostname}}"
+					],
+					"port": "{{apiPort}}{{location}}"
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
